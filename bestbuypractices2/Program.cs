@@ -10,13 +10,23 @@ namespace bestbuypractices2
     {
         static void Main(string[] args)
         {
+            #region Configuration
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            string connString = config.GetConnectionString("DefaultConnection");
+            string conn = config.GetConnectionString("DefaultConnection");
+            DapperDepartmentsRepository repo = new DapperDepartmentsRepository(conn);
+            var depos = repo.GetAllDeparments();
+            Console.WriteLine("Press enter");
+            Console.ReadLine();
+            foreach (var depo in depos)
+            {
+                Console.WriteLine($"ID:{depo.DepartmentID}Name:{depo.Name}");
+            }
             //IDbConnection conn = new MySqlConnection(connString);
+            #endregion
         }
     }
 }

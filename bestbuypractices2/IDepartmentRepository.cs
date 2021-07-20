@@ -8,5 +8,6 @@ namespace bestbuypractices2
     public interface IDepartmentRepository
     {
         IEnumerable<Department> GetAllDeparments();
+        void InsertDepartment();
     }
 }

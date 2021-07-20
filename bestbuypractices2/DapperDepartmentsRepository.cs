@@ -10,26 +10,27 @@ namespace bestbuypractices2
     class DapperDepartmentsRepository : IDepartmentRepository
     {
         private readonly IDbConnection _connection;
+        private string conn;
+
         //Constructor
         public DapperDepartmentsRepository(IDbConnection connection)
         {
             _connection = connection;
         }
 
-        public IEnumerable<Department> GetAllDeparments()
+        public DapperDepartmentsRepository(string conn)
         {
-            throw new NotImplementedException();
+            this.conn = conn;
         }
-        public IEnumerable<Department> GetAllDepartments()
+
+        public IEnumerable<Department> GetAllDeparments()
         {
             return _connection.Query<Department>("SELECT * FROM Departments;");
         }
-        public void InsertDepartment(string newDepartmentName)
+        public void InsertDepartment()
         {
-            _connection.Execute("INSERT INTO DEPARTMENTS (Name) VALUES (@departmentName);",
-            new { departmentName = newDepartmentName });
+            _connection.Execute("INSERT INTO DEPARTMENTS (Name) VALUES (@departmentName);");
+            
         }
-
-
     }
 }
